@@ -25,7 +25,7 @@ class UserRemoteDataSourcesImpl implements UserRemoteDataSources {
     String birthdate,
   ) async {
     final resp = await dio.post(
-      'http://localhost:3000/user', //TODO: Pegarle al endpoint correctamente
+      'http://localhost:3000/auth/register',
       data: {
         'email': email,
         'password': password,
@@ -40,10 +40,10 @@ class UserRemoteDataSourcesImpl implements UserRemoteDataSources {
   }
 
   @override
-  Future<UserModel> signInUser(String email, String password) async {
+  Future<UserModel> signInUser(String username, String password) async {
     final resp = await dio.post(
-      'http://localhost:3000/register', //TODO: Pegarle al endpoint correctamente
-      data: {'email': email, 'password': password},
+      'http://localhost:3000/login',
+      data: {'username': username, 'password': password},
     );
 
     return UserModel.fromJson(resp);
