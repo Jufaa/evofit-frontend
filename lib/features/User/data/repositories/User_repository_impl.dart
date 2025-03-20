@@ -29,15 +29,26 @@ class UserRepositoryImpl implements UserRepository {
         birthdate,
       );
 
-      return Right(user); // Retorna un resultado exitoso con `Right`
+      return Right(user);
     } on DioException {
-      return Left(ServerFailure()); // Manejo de errores con `Left`
+      return Left(ServerFailure());
     }
   }
 
   @override
-  Future<Either<Failure, UserModel>> signInUser(String email, String password) {
-    // TODO: Implementar signInUser
-    throw UnimplementedError();
+  Future<Either<Failure, UserModel>> signInUser(
+    String email,
+    String password,
+  ) async {
+    try {
+      final UserModel user = await userRemoteDataSources.signInUser(
+        email,
+        password,
+      );
+
+      return Right(user);
+    } on DioException {
+      return Left(ServerFailure());
+    }
   }
 }
