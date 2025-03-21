@@ -1,4 +1,4 @@
-import 'package:frontend/features/Exercises/domain/repositories/ExerciseRepository.dart';
+import 'package:frontend/features/Exercises/domain/repositories/exercise_repository.dart';
 
 class DeleteExerciseUseCase {
   final ExerciseRepository repository;

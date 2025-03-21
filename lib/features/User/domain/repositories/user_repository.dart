@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:frontend/core/error/failures.dart';
-import 'package:frontend/features/User/domain/entities/User.dart';
+import 'package:frontend/features/User/domain/entities/user.dart';
 
 abstract class UserRepository {
   Future<Either<Failure, User>> createUser(

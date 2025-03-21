@@ -1,4 +1,4 @@
-import 'package:frontend/features/User/domain/entities/User.dart';
+import 'package:frontend/features/User/domain/entities/user.dart';
 
 class UserModel extends User {
   UserModel({

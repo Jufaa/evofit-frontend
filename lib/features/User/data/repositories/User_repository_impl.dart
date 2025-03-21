@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:frontend/core/error/failures.dart';
 import 'package:frontend/features/User/data/datasources/user_remote_data_source.dart';
 import 'package:frontend/features/User/data/models/user_model.dart';
-import 'package:frontend/features/User/domain/repositories/UserRepository.dart';
+import 'package:frontend/features/User/domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
   final UserRemoteDataSources userRemoteDataSources;

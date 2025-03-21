@@ -1,4 +1,4 @@
-import 'package:frontend/features/Exercises/domain/entities/Exercise.dart';
+import 'package:frontend/features/Exercises/domain/entities/exercise.dart';
 
 class ExerciseModel extends Exercise {
   ExerciseModel({

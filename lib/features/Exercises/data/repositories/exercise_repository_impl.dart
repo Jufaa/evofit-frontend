@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 import 'package:frontend/core/error/failures.dart';
 import 'package:frontend/features/Exercises/data/datasources/exercise_remote_data_source.dart';
-import 'package:frontend/features/Exercises/domain/entities/Exercise.dart';
-import 'package:frontend/features/Exercises/domain/repositories/ExerciseRepository.dart';
+import 'package:frontend/features/Exercises/domain/entities/exercise.dart';
+import 'package:frontend/features/Exercises/domain/repositories/exercise_repository.dart';
 
 class ExerciseRepositoryImpl implements ExerciseRepository {
   final ExerciseRemoteDataSource exerciseRemoteDataSource;

@@ -1,4 +1,4 @@
-import 'package:frontend/features/User/domain/repositories/UserRepository.dart';
+import 'package:frontend/features/User/domain/repositories/user_repository.dart';
 
 class CreateUserUseCase {
   final UserRepository repository;
