@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:frontend/layouts/column.dart';
+import 'package:frontend/shared/presentation/screen/homeScreen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -10,6 +10,6 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(home: Scaffold(body: ColumnExample()));
+    return const MaterialApp(home: Scaffold(body: Center(child: HomeScreen())));
   }
 }
