@@ -6,11 +6,11 @@ class CreateExerciseUseCase {
 
   CreateExerciseUseCase({required this.repository});
 
-  call(String name_exercise, String description, String muscle_group) {
+  call(String nameExercise, String description, String muscleGroup) {
     var exercise = Exercise(
-      name_exercise: name_exercise,
+      name_exercise: nameExercise,
       description: description,
-      muscle_group: muscle_group,
+      muscle_group: muscleGroup,
     );
     return repository.createExercise(exercise);
   }

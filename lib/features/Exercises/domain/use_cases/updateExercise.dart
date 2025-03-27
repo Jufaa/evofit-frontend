@@ -6,16 +6,11 @@ class UpdateExerciseUseCase {
 
   UpdateExerciseUseCase({required this.repository});
 
-  call(
-    String id,
-    String name_exercise,
-    String description,
-    String muscle_group,
-  ) {
+  call(String id, String nameExercise, String description, String muscleGroup) {
     var exercise = Exercise(
-      name_exercise: name_exercise,
+      name_exercise: nameExercise,
       description: description,
-      muscle_group: muscle_group,
+      muscle_group: muscleGroup,
     );
     return repository.updateExercise(id, exercise);
   }

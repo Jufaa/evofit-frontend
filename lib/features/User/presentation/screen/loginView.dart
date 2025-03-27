@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/User/presentation/screen/registerView.dart';
 import 'package:frontend/shared/presentation/bloc/NavigationService.dart';
+import 'package:frontend/shared/presentation/screen/mainHome.dart';
 import 'package:frontend/shared/presentation/theme/app_colors.dart';
 import 'package:frontend/shared/presentation/widgets/buttonHome.dart';
 
@@ -92,7 +93,8 @@ class _LoginViewState extends State<LoginView> {
           ButtonHome(
             text: "Login",
             onPressed:
-                () => NavigationService.navigateTo(context, const LoginView()),
+                () =>
+                    NavigationService.navigateTo(context, const MainHomeView()),
           ),
           const SizedBox(height: 30),
           Text(
