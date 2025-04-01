@@ -10,8 +10,8 @@ final di = GetIt.instance;
 Future<void> init() async {
   // USER
   // Use cases
-  di.resetLazySingleton(instance: () => CreateUserUseCase(repository: di()));
-  di.resetLazySingleton(instance: () => SignInUserUseCase(repository: di()));
+  di.registerLazySingleton(() => CreateUserUseCase(repository: di()));
+  di.registerLazySingleton(() => SignInUserUseCase(repository: di()));
 
   // Repositories
   di.registerLazySingleton<UserRepository>(

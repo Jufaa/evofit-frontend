@@ -12,6 +12,7 @@ class UserModel extends User {
   });
 
   factory UserModel.fromJson(json) {
+    print('JSON: $json');
     return UserModel(
       email: json['email'],
       password: json['password'],
@@ -19,7 +20,7 @@ class UserModel extends User {
       firstName: json['firstName'],
       lastName: json['lastName'],
       role: json['role'],
-      birthdate: json['birthdate'],
+      birthdate: DateTime.parse(json['birthdate']),
     );
   }
 

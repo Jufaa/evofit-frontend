@@ -9,7 +9,7 @@ abstract class UserRepository {
     String username,
     String firstName,
     String lastName,
-    String birthdate,
+    DateTime birthdate,
   );
-  Future<Either<Failure, User>> signInUser(String email, String password);
+  Future<Either<Failure, User>> signInUser(String username, String password);
 }

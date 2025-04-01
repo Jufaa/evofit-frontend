@@ -4,15 +4,15 @@ class CreateUserUseCase {
   final UserRepository repository;
 
   CreateUserUseCase({required this.repository});
-
   call(
     String email,
     String password,
     String username,
     String firstName,
     String lastName,
-    String birthdate,
+    DateTime birthdate,
   ) {
+    print('DateTime: $birthdate');
     return repository.createUser(
       email,
       password,

@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/User/domain/use_cases/signInUser.dart';
 import 'package:frontend/features/User/presentation/screen/registerView.dart';
 import 'package:frontend/shared/presentation/bloc/NavigationService.dart';
 import 'package:frontend/shared/presentation/screen/mainHome.dart';
 import 'package:frontend/shared/presentation/theme/app_colors.dart';
 import 'package:frontend/shared/presentation/widgets/buttonHome.dart';
+import 'package:get_it/get_it.dart';
 
 class LoginView extends StatefulWidget {
   const LoginView({super.key});
@@ -12,10 +14,14 @@ class LoginView extends StatefulWidget {
   State<LoginView> createState() => _LoginViewState();
 }
 
+final SignInUserUseCase _signInUserUseCase =
+    GetIt.instance.get<SignInUserUseCase>();
+
 class _LoginViewState extends State<LoginView> {
-  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _usernameController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   bool _obscurePassword = true;
+  bool _isLoading = false;
 
   @override
   Widget build(BuildContext context) {
@@ -77,8 +83,8 @@ class _LoginViewState extends State<LoginView> {
         children: [
           /// Inputs
           _buildInputField(
-            controller: _emailController,
-            label: "Email",
+            controller: _usernameController,
+            label: "Username",
             icon: Icons.email,
             isPassword: false,
           ),
@@ -92,9 +98,40 @@ class _LoginViewState extends State<LoginView> {
           const SizedBox(height: 30),
           ButtonHome(
             text: "Login",
-            onPressed:
-                () =>
+            onPressed: () async {
+              // Validación de campos vacíos
+              if (_usernameController.text.isEmpty ||
+                  _passwordController.text.isEmpty) {
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text("Por favor, completa todos los campos"),
+                  ),
+                );
+                return; // Detener la ejecución
+              }
+
+              setState(() => _isLoading = true);
+
+              // Llamada al caso de uso
+              final result = await _signInUserUseCase(
+                _usernameController.text,
+                _passwordController.text,
+              );
+
+              setState(() => _isLoading = false);
+
+              result.fold(
+                (failure) => ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(
+                    content: Text(
+                      "Error de inicio de sesión: ${failure.toString()}",
+                    ),
+                  ),
+                ),
+                (user) =>
                     NavigationService.navigateTo(context, const MainHomeView()),
+              );
+            },
           ),
           const SizedBox(height: 30),
           Text(
@@ -196,7 +233,7 @@ class _LoginViewState extends State<LoginView> {
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }

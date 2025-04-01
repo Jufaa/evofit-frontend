@@ -2,32 +2,32 @@ import 'package:frontend/features/Exercises/domain/entities/exercise.dart';
 
 class ExerciseModel extends Exercise {
   ExerciseModel({
-    required super.name_exercise,
+    required super.name,
     required super.description,
-    required super.muscle_group,
+    required super.main_muscle_id,
   });
 
   factory ExerciseModel.fromJson(json) {
     return ExerciseModel(
-      name_exercise: json['name_exercise'],
+      name: json['name'],
       description: json['description'],
-      muscle_group: json['muscle_group'],
+      main_muscle_id: json['main_muscle_id'],
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'name_exercise': name_exercise,
+      'name': name,
       'description': description,
-      'muscle_group': muscle_group,
+      'main_muscle_id': main_muscle_id,
     };
   }
 
   factory ExerciseModel.fromEntity(Exercise exercise) {
     return ExerciseModel(
-      name_exercise: exercise.name_exercise,
+      name: exercise.name,
       description: exercise.description,
-      muscle_group: exercise.muscle_group,
+      main_muscle_id: exercise.main_muscle_id,
     );
   }
 }

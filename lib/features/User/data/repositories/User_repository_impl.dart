@@ -5,6 +5,12 @@ import 'package:frontend/features/User/data/datasources/user_remote_data_source.
 import 'package:frontend/features/User/data/models/user_model.dart';
 import 'package:frontend/features/User/domain/repositories/user_repository.dart';
 
+class ServerFailure extends Failure {
+  final String? message;
+
+  ServerFailure({this.message});
+}
+
 class UserRepositoryImpl implements UserRepository {
   final UserRemoteDataSources userRemoteDataSources;
 
@@ -17,7 +23,7 @@ class UserRepositoryImpl implements UserRepository {
     String username,
     String firstName,
     String lastName,
-    String birthdate,
+    DateTime birthdate,
   ) async {
     try {
       final UserModel user = await userRemoteDataSources.createUser(
@@ -30,25 +36,53 @@ class UserRepositoryImpl implements UserRepository {
       );
 
       return Right(user);
-    } on DioException {
-      return Left(ServerFailure());
+    } on DioException catch (e) {
+      // Imprimir los detalles de la excepción para más información
+      print('DioException: ${e.message}');
+      print('DioException Response: ${e.response}');
+
+      // Verificar si la respuesta contiene información más específica
+      if (e.response != null) {
+        // Acceder a detalles de la respuesta del servidor
+        print('Status code: ${e.response?.statusCode}');
+        print('Response data: ${e.response?.data}');
+      }
+
+      // Devolver un error genérico o más detallado dependiendo del caso
+      return Left(
+        ServerFailure(message: e.message),
+      ); // Puedes pasar el mensaje de error al Failure
     }
   }
 
   @override
   Future<Either<Failure, UserModel>> signInUser(
-    String email,
+    String username,
     String password,
   ) async {
     try {
       final UserModel user = await userRemoteDataSources.signInUser(
-        email,
+        username,
         password,
       );
 
       return Right(user);
-    } on DioException {
-      return Left(ServerFailure());
+    } on DioException catch (e) {
+      // Imprimir los detalles de la excepción para más información
+      print('DioException: ${e.message}');
+      print('DioException Response: ${e.response}');
+
+      // Verificar si la respuesta contiene información más específica
+      if (e.response != null) {
+        // Acceder a detalles de la respuesta del servidor
+        print('Status code: ${e.response?.statusCode}');
+        print('Response data: ${e.response?.data}');
+      }
+
+      // Devolver un error genérico o más detallado dependiendo del caso
+      return Left(
+        ServerFailure(message: e.message),
+      ); // Puedes pasar el mensaje de error al Failure
     }
   }
 }

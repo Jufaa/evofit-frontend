@@ -1,11 +1,11 @@
-import 'package:frontend/features/Routine/domain/entities/Routine.dart';
 import 'package:frontend/features/Routine/domain/repositories/routine_repository.dart';
 
 class CreateRoutineUseCase {
   final RoutineRepository routineRepository;
 
   CreateRoutineUseCase({required this.routineRepository});
-  call(int profileId, String routineName, List<Routine> exercises) {
-    return routineRepository.createRoutine(profileId, routineName, exercises);
+
+  call(String name, int weeks, int days, int user_id) async {
+    return await routineRepository.createRoutine(name, weeks, days, user_id);
   }
 }

@@ -1,48 +1,31 @@
 import 'package:dartz/dartz.dart';
+import 'package:dio/dio.dart';
 import 'package:frontend/core/error/failures.dart';
 import 'package:frontend/features/Exercises/data/datasources/exercise_remote_data_source.dart';
-import 'package:frontend/features/Exercises/domain/entities/exercise.dart';
+import 'package:frontend/features/Exercises/data/models/exercise_model.dart';
 import 'package:frontend/features/Exercises/domain/repositories/exercise_repository.dart';
 
+class ServerFailure extends Failure {
+  final String message;
+
+  ServerFailure({required this.message});
+}
+
 class ExerciseRepositoryImpl implements ExerciseRepository {
-  final ExerciseRemoteDataSource exerciseRemoteDataSource;
+  final ExerciseRemoteDataSource exerciseRemoteDataSources;
 
-  ExerciseRepositoryImpl({required this.exerciseRemoteDataSource});
+  ExerciseRepositoryImpl({required this.exerciseRemoteDataSources});
 
   @override
-  Future<Either<Failure, bool>> deleteExercise(String id) async {
+  Future<Either<Failure, List<ExerciseModel>>> getAllExercise() async {
     try {
-      final bool result = await exerciseRemoteDataSource.deleteExercise(id);
-      return Right(result);
-    } on Exception {
-      return Left(ServerFailure());
+      final List<ExerciseModel> exercises =
+          await exerciseRemoteDataSources.getAllExercises();
+      return Right(exercises);
+    } on DioException catch (e) {
+      return Left(
+        ServerFailure(message: e.message ?? 'Unknown error occurred'),
+      );
     }
-  }
-
-  @override
-  Future<Either<Failure, Exercise>> createExercise(Exercise exercise) {
-    // TODO: implement createExercise
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, Exercise>> getAllExercise() {
-    // TODO: implement getAllExercise
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, Exercise>> getOneExercise(String id) {
-    // TODO: implement getOneExercise
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<Either<Failure, Exercise>> updateExercise(
-    String id,
-    Exercise exercise,
-  ) {
-    // TODO: implement updateExercise
-    throw UnimplementedError();
   }
 }

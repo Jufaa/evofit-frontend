@@ -8,7 +8,7 @@ abstract class UserRemoteDataSources {
     String username,
     String firstName,
     String lastName,
-    String birthdate,
+    DateTime birthdate,
   );
   Future<UserModel> signInUser(String email, String password);
 }
@@ -22,30 +22,66 @@ class UserRemoteDataSourcesImpl implements UserRemoteDataSources {
     String username,
     String firstName,
     String lastName,
-    String birthdate,
+    DateTime birthdate,
   ) async {
-    final resp = await dio.post(
-      'http://localhost:3000/auth/register',
-      data: {
-        'email': email,
-        'password': password,
-        'username': username,
-        'firstName': firstName,
-        'lastName': lastName,
-        'birthdate': birthdate,
-      },
-    );
+    try {
+      print('EMAIL: $email');
+      print('PASSWORD: $password');
+      print('USERNAME: $username');
+      print('FIRSTNAME: $firstName');
+      print('LASTNAME: $lastName');
+      print('BIRTHDATE: $birthdate');
 
-    return UserModel.fromJson(resp);
+      final resp = await dio.post(
+        'http://10.0.2.2:3000/auth/register',
+        data: {
+          'email': email,
+          'password': password,
+          'username': username,
+          'firstName': firstName,
+          'lastName': lastName,
+          'role': 'user',
+          'birthdate': birthdate.toIso8601String(),
+        },
+      );
+      print('RESP USER REMOTE DATA: ${resp.data}');
+
+      // Aquí usamos resp.data, que es el Map que podemos pasar a fromJson
+      return UserModel.fromJson(resp.data);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        print(
+          'Error en la solicitud: ${e.response?.statusCode} - ${e.response?.data}',
+        );
+      } else {
+        print('Error de conexión: ${e.message}');
+      }
+      rethrow;
+    }
   }
 
   @override
   Future<UserModel> signInUser(String username, String password) async {
-    final resp = await dio.post(
-      'http://localhost:3000/login',
-      data: {'username': username, 'password': password},
-    );
+    try {
+      final resp = await dio.post(
+        'http://10.0.2.2:3000/auth/login',
+        data: {'username': username, 'password': password},
+      );
 
-    return UserModel.fromJson(resp);
+      // Asegúrate de acceder a resp.data, que contiene el cuerpo de la respuesta
+      print('RESP USER REMOTE DATA: ${resp.data}');
+
+      // Aquí usamos resp.data, que es el Map que podemos pasar a fromJson
+      return UserModel.fromJson(resp.data);
+    } on DioException catch (e) {
+      if (e.response != null) {
+        print(
+          'Error en la solicitud: ${e.response?.statusCode} - ${e.response?.data}',
+        );
+      } else {
+        print('Error de conexión: ${e.message}');
+      }
+      rethrow;
+    }
   }
 }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/di.dart';
 import 'package:frontend/shared/presentation/screen/homeScreen.dart';
 
-void main() {
+void main() async {
+  await init();
   runApp(const MainApp());
 }
 
