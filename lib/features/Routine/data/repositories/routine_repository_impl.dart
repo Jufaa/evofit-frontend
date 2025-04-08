@@ -34,4 +34,37 @@ class RoutineRepositoryImpl extends RoutineRepository {
       return Left(ServerFailure(message: e.toString()));
     }
   }
+
+  @override
+  Future<Either<Failure, Routine>> getRoutineById(int id) async {
+    try {
+      final Routine routine = await remoteDataSource.getRoutineById(id);
+      return Right(routine);
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<Routine>>> getAllRoutinesByUserId(
+    int user_id,
+  ) async {
+    try {
+      final List<Routine> routines = await remoteDataSource
+          .getAllRoutinesByUserId(user_id);
+      return Right(routines);
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
+
+  @override
+  Future<Either<Failure, bool>> deleteRoutine(int id) async {
+    try {
+      final bool result = await remoteDataSource.deleteRoutine(id);
+      return Right(result);
+    } catch (e) {
+      return Left(ServerFailure(message: e.toString()));
+    }
+  }
 }

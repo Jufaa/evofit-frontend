@@ -8,7 +8,19 @@ class AddRoutineExerciseUseCase {
 
   AddRoutineExerciseUseCase({required this.routineExerciseRepository});
 
-  Future<Either<Failure, Routine>> call(Routine routineExercise) {
-    return routineExerciseRepository.addRoutineExercise(routineExercise);
+  Future<Either<Failure, Routine>> call({
+    required int routine_id,
+    required int exercise_id,
+    required int sets,
+    required int reps,
+    required int weight,
+  }) {
+    return routineExerciseRepository.addRoutineExercise(
+      routine_id,
+      exercise_id,
+      sets,
+      reps,
+      weight,
+    );
   }
 }

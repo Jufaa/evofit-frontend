@@ -1,5 +1,4 @@
 import 'package:frontend/features/Routine/domain/entities/Routine.dart';
-import 'package:frontend/features/Routine_exercises/data/models/routine_exercise_model.dart';
 
 class RoutineModel extends Routine {
   RoutineModel({

@@ -9,4 +9,10 @@ abstract class RoutineRepository {
     int days,
     int user_id,
   );
+
+  Future<Either<Failure, Routine>> getRoutineById(int id);
+
+  Future<Either<Failure, List<Routine>>> getAllRoutinesByUserId(int user_id);
+
+  Future<Either<Failure, bool>> deleteRoutine(int id);
 }

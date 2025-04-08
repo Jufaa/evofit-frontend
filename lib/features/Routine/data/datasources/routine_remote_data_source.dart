@@ -8,6 +8,10 @@ abstract class RoutineRemoteDataSource {
     int days,
     int user_id,
   );
+
+  Future<RoutineModel> getRoutineById(int id);
+  Future<List<RoutineModel>> getAllRoutinesByUserId(int id);
+  Future<bool> deleteRoutine(int id);
 }
 
 class RoutineRemoteDataSourceImpl implements RoutineRemoteDataSource {
@@ -33,6 +37,57 @@ class RoutineRemoteDataSourceImpl implements RoutineRemoteDataSource {
     } catch (e) {
       print('Error en la solicitud: $e');
       rethrow;
+    }
+  }
+
+  @override
+  Future<RoutineModel> getRoutineById(int id) async {
+    try {
+      final resp = await dio.get('http://10.0.2.2:3000/routine/$id');
+      if (resp.statusCode == 200) {
+        return RoutineModel.fromJson(resp.data);
+      } else {
+        throw Exception('Error al obtener la rutina: ${resp.statusCode}');
+      }
+    } catch (e) {
+      print('Error en la solicitud: $e');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<List<RoutineModel>> getAllRoutinesByUserId(int id) async {
+    try {
+      final resp = await dio.get('http://10.0.2.2:3000/routine/$id/all');
+      if (resp.statusCode == 200) {
+        List<RoutineModel> routines =
+            (resp.data as List)
+                .map((routine) => RoutineModel.fromJson(routine))
+                .toList();
+        return routines;
+      } else {
+        throw Exception('Error al obtener las rutinas: ${resp.statusCode}');
+      }
+    } catch (e) {
+      print('Error en la solicitud: $e');
+      rethrow;
+    }
+  }
+
+  @override
+  Future<bool> deleteRoutine(int id) async {
+    try {
+      final resp = await dio.put('http://10.0.2.2:3000/routine/$id/delete');
+      if (resp.statusCode == 200) {
+        return true;
+      } else {
+        throw Exception('Error al eliminar la rutina: ${resp.statusCode}');
+      }
+    } catch (e) {
+      print('Error en la solicitud: $e');
+      rethrow;
+    } finally {
+      dio.close();
     }
   }
 }

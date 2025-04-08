@@ -28,4 +28,19 @@ class ExerciseRepositoryImpl implements ExerciseRepository {
       );
     }
   }
+
+  @override
+  Future<Either<Failure, ExerciseModel>> getExerciseByMainMuscleId(
+    int mainMuscleId,
+  ) async {
+    try {
+      final ExerciseModel exercise = await exerciseRemoteDataSources
+          .getExerciseByMainMuscleId(mainMuscleId);
+      return Right(exercise);
+    } on DioException catch (e) {
+      return Left(
+        ServerFailure(message: e.message ?? 'Unknown error occurred'),
+      );
+    }
+  }
 }

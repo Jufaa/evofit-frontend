@@ -4,4 +4,5 @@ import 'package:frontend/features/Exercises/domain/entities/exercise.dart';
 
 abstract class ExerciseRepository {
   Future<Either<Failure, List<Exercise>>> getAllExercise();
+  Future<Either<Failure, Exercise>> getExerciseByMainMuscleId(int exerciseId);
 }
