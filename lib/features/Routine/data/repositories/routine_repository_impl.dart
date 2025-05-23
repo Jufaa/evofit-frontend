@@ -1,7 +1,7 @@
 import 'package:dartz/dartz.dart';
 import 'package:frontend/core/error/failures.dart';
 import 'package:frontend/features/Routine/data/datasources/routine_remote_data_source.dart';
-import 'package:frontend/features/Routine/domain/entities/Routine.dart';
+import 'package:frontend/features/Routine/domain/entities/routine.dart';
 import 'package:frontend/features/Routine/domain/repositories/routine_repository.dart';
 
 class ServerFailure extends Failure {

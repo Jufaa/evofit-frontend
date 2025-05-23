@@ -1,6 +1,6 @@
 import 'package:dartz/dartz.dart';
 import 'package:frontend/core/error/failures.dart';
-import 'package:frontend/features/Routine/domain/entities/Routine.dart';
+import 'package:frontend/features/Routine/domain/entities/routine.dart';
 import 'package:frontend/features/Routine_exercises/domain/repositories/routine_exercises_repository.dart';
 
 class AddRoutineExerciseUseCase {

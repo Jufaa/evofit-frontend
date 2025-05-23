@@ -1,4 +1,4 @@
-import 'package:frontend/features/Routine/domain/entities/Routine.dart';
+import 'package:frontend/features/Routine/domain/entities/routine.dart';
 
 class RoutineModel extends Routine {
   RoutineModel({
