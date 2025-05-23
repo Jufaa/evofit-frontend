@@ -4,11 +4,11 @@ import 'package:frontend/features/Routine_exercises/domain/entities/routine_exer
 import 'package:frontend/features/Routine_exercises/domain/repositories/routine_exercises_repository.dart';
 
 class GetAllRoutineExerciserByIdUseCase {
-  final RoutineExerciseRepository routineExerciserRepository;
+  final RoutineExerciseRepository routineExerciseRepository;
 
-  GetAllRoutineExerciserByIdUseCase({required this.routineExerciserRepository});
+  GetAllRoutineExerciserByIdUseCase({required this.routineExerciseRepository});
 
   Future<Either<Failure, List<RoutineExercise>>> call(int id) async {
-    return await routineExerciserRepository.getAllRoutineExercisesById(id);
+    return await routineExerciseRepository.getAllRoutineExercisesById(id);
   }
 }

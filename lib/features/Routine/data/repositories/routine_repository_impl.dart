@@ -11,9 +11,9 @@ class ServerFailure extends Failure {
 }
 
 class RoutineRepositoryImpl extends RoutineRepository {
-  final RoutineRemoteDataSource remoteDataSource;
+  final RoutineRemoteDataSource routineRemoteDataSource;
 
-  RoutineRepositoryImpl({required this.remoteDataSource});
+  RoutineRepositoryImpl({required this.routineRemoteDataSource});
 
   @override
   Future<Either<Failure, Routine>> createRoutine(
@@ -23,7 +23,7 @@ class RoutineRepositoryImpl extends RoutineRepository {
     int user_id,
   ) async {
     try {
-      final Routine routine = await remoteDataSource.createRoutine(
+      final Routine routine = await routineRemoteDataSource.createRoutine(
         name,
         weeks,
         days,
@@ -38,7 +38,7 @@ class RoutineRepositoryImpl extends RoutineRepository {
   @override
   Future<Either<Failure, Routine>> getRoutineById(int id) async {
     try {
-      final Routine routine = await remoteDataSource.getRoutineById(id);
+      final Routine routine = await routineRemoteDataSource.getRoutineById(id);
       return Right(routine);
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));
@@ -50,7 +50,7 @@ class RoutineRepositoryImpl extends RoutineRepository {
     int user_id,
   ) async {
     try {
-      final List<Routine> routines = await remoteDataSource
+      final List<Routine> routines = await routineRemoteDataSource
           .getAllRoutinesByUserId(user_id);
       return Right(routines);
     } catch (e) {
@@ -61,7 +61,7 @@ class RoutineRepositoryImpl extends RoutineRepository {
   @override
   Future<Either<Failure, bool>> deleteRoutine(int id) async {
     try {
-      final bool result = await remoteDataSource.deleteRoutine(id);
+      final bool result = await routineRemoteDataSource.deleteRoutine(id);
       return Right(result);
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));

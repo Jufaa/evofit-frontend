@@ -4,11 +4,11 @@ import 'package:frontend/features/User/domain/entities/user.dart';
 import 'package:frontend/features/User/domain/repositories/user_repository.dart';
 
 class SignInUserUseCase {
-  final UserRepository repository;
+  final UserRepository repositoryUser;
 
-  SignInUserUseCase({required this.repository});
+  SignInUserUseCase({required this.repositoryUser});
 
   Future<Either<Failure, User>> call(String username, String password) async {
-    return await repository.signInUser(username, password);
+    return await repositoryUser.signInUser(username, password);
   }
 }

@@ -1,9 +1,9 @@
 import 'package:frontend/features/User/domain/repositories/user_repository.dart';
 
 class CreateUserUseCase {
-  final UserRepository repository;
+  final UserRepository repositoryUser;
 
-  CreateUserUseCase({required this.repository});
+  CreateUserUseCase({required this.repositoryUser});
   call(
     String email,
     String password,
@@ -13,7 +13,7 @@ class CreateUserUseCase {
     DateTime birthdate,
   ) {
     print('DateTime: $birthdate');
-    return repository.createUser(
+    return repositoryUser.createUser(
       email,
       password,
       username,
