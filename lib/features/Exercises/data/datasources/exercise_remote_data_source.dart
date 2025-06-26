@@ -12,7 +12,8 @@ class ExerciseRemoteDataSourceImpl implements ExerciseRemoteDataSource {
   Future<List<ExerciseModel>> getAllExercises() async {
     try {
       final resp = await dio.get('http://10.0.2.2:3000/exercise/all');
-
+      print('RESP EXERCISE REMOTE DATA: ${resp.data}');
+      print('RESP EXERCISE REMOTE DATA: ${resp}');
       return (resp.data as List)
           .map((exercise) => ExerciseModel.fromJson(exercise))
           .toList();

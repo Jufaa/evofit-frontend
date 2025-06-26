@@ -3,6 +3,7 @@ import 'package:frontend/di.dart';
 import 'package:frontend/shared/presentation/screen/homeScreen.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await init();
   runApp(const MainApp());
 }

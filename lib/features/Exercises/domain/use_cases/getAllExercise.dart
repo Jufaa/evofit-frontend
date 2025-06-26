@@ -8,7 +8,7 @@ class GetAllExerciseUseCase {
 
   GetAllExerciseUseCase({required this.exerciseRepository});
 
-  Future<Either<Failure, List<Exercise>>> call() async {
-    return await exerciseRepository.getAllExercise();
+  Future<Either<Failure, List<Exercise>>> call() {
+    return exerciseRepository.getAllExercise();
   }
 }

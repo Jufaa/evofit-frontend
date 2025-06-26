@@ -4,11 +4,11 @@ import 'package:frontend/features/Exercises/domain/entities/exercise.dart';
 import 'package:frontend/features/Exercises/domain/repositories/exercise_repository.dart';
 
 class GetExerciseByMainMuscleIdUseCase {
-  final ExerciseRepository _exerciseRepository;
+  final ExerciseRepository exerciseRepository;
 
-  GetExerciseByMainMuscleIdUseCase(this._exerciseRepository);
+  GetExerciseByMainMuscleIdUseCase({required this.exerciseRepository});
 
   Future<Either<Failure, Exercise>> call(int mainMuscleId) async {
-    return await _exerciseRepository.getExerciseByMainMuscleId(mainMuscleId);
+    return await exerciseRepository.getExerciseByMainMuscleId(mainMuscleId);
   }
 }

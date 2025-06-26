@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/features/Exercises/presentation/screen/ListExercise.dart';
 import 'package:frontend/shared/presentation/theme/app_colors.dart';
+// importá tus vistas directamente si están en archivos separados
+// import 'package:frontend/features/Exercises/presentation/exercise_view.dart';
 
 class MainHomeView extends StatefulWidget {
   const MainHomeView({super.key});
@@ -11,8 +14,18 @@ class MainHomeView extends StatefulWidget {
 class _MainHomeViewState extends State<MainHomeView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
 
-  void _navigateTo(String route) {
-    Navigator.pushNamed(context, route);
+  Widget? _selectedView;
+
+  void _showView(Widget view) {
+    setState(() {
+      _selectedView = view;
+    });
+  }
+
+  void _goBackToMenu() {
+    setState(() {
+      _selectedView = null;
+    });
   }
 
   @override
@@ -45,68 +58,73 @@ class _MainHomeViewState extends State<MainHomeView> {
             ListTile(
               leading: Icon(Icons.home),
               title: Text("Inicio"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.settings),
-              title: Text("Configuración"),
-              onTap: () {
-                Navigator.pop(context);
-              },
-            ),
-            ListTile(
-              leading: Icon(Icons.logout),
-              title: Text("Cerrar sesión"),
-              onTap: () {
-                Navigator.pop(context);
-              },
+              onTap: _goBackToMenu,
             ),
           ],
         ),
       ),
       body: Container(
         color: AppColors.primary,
-        child: Column(
-          children: [
-            Expanded(
-              child: _buildExpandedButton(
-                "lib/assets/images/w1.jpg",
-                "Mis rutinas",
-                "/workout",
-              ),
-            ),
-            Expanded(
-              child: _buildExpandedButton(
-                "lib/assets/images/w2.jpg",
-                "Crear rutina",
-                "/nutrition",
-              ),
-            ),
-            Expanded(
-              child: _buildExpandedButton(
-                "lib/assets/images/w1.jpg",
-                "Ejercicios",
-                "/wellness",
-              ),
-            ),
-            Expanded(
-              child: _buildExpandedButton(
-                "lib/assets/images/w2.jpg",
-                "Marcas",
-                "/schedule",
-              ),
-            ),
-          ],
-        ),
+        child:
+            _selectedView != null
+                ? Column(
+                  children: [
+                    Expanded(child: _selectedView!),
+                    ElevatedButton(
+                      onPressed: _goBackToMenu,
+                      child: Text("Volver al menú"),
+                    ),
+                  ],
+                )
+                : Column(
+                  children: [
+                    Expanded(
+                      child: _buildExpandedButton(
+                        "lib/assets/images/w1.jpg",
+                        "Mis rutinas",
+                        const Scaffold(
+                          body: Center(child: Text("Vista Crear Rutina")),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: _buildExpandedButton(
+                        "lib/assets/images/w2.jpg",
+                        "Crear rutina",
+                        const Scaffold(
+                          body: Center(child: Text("Vista Crear Rutina")),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      child: _buildExpandedButton(
+                        "lib/assets/images/w1.jpg",
+                        "Ejercicios",
+                        Scaffold(body: Center(child: ListexerciseView())),
+                      ),
+                    ),
+                    Expanded(
+                      child: _buildExpandedButton(
+                        "lib/assets/images/w2.jpg",
+                        "Marcas",
+                        const Scaffold(
+                          body: Center(child: Text("Vista Crear Rutina")),
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
       ),
     );
   }
 
-  Widget _buildExpandedButton(String imagePath, String label, String route) {
+  Widget _buildExpandedButton(
+    String imagePath,
+    String label,
+    Scaffold viewToShow,
+  ) {
     return GestureDetector(
-      onTap: () => _navigateTo(route),
+      onTap: () => _showView(viewToShow),
       child: Container(
         margin: EdgeInsets.all(10),
         decoration: BoxDecoration(
@@ -120,16 +138,14 @@ class _MainHomeViewState extends State<MainHomeView> {
           ],
           image: DecorationImage(
             image: AssetImage(imagePath),
-            fit: BoxFit.cover, // Ajusta la imagen al tamaño del botón
+            fit: BoxFit.cover,
           ),
         ),
         child: Center(
           child: Container(
             padding: EdgeInsets.all(10),
             decoration: BoxDecoration(
-              color:
-                  Colors
-                      .black54, // Fondo semitransparente para mejorar la visibilidad del texto
+              color: Colors.black54,
               borderRadius: BorderRadius.circular(10),
             ),
             child: Text(

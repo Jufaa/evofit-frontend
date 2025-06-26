@@ -17,12 +17,10 @@ class MainMuscleRepositoryImpl implements MainMuscleRepository {
   MainMuscleRepositoryImpl({required this.mainMuscleRemoteDataSources});
 
   @override
-  Future<Either<Failure, List<MainMuscle>>> getAllMainMuscle(
-    String muscleGroup,
-  ) async {
+  Future<Either<Failure, List<MainMuscle>>> getAllMainMuscle() async {
     try {
-      final List<MainMuscle> mainMuscles = await mainMuscleRemoteDataSources
-          .getAllMainMuscle(muscleGroup);
+      final List<MainMuscle> mainMuscles =
+          await mainMuscleRemoteDataSources.getAllMainMuscle();
       return Right(mainMuscles);
     } on DioException catch (e) {
       // Imprimir los detalles de la excepción para más información
