@@ -1,20 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/features/Exercises/presentation/screen/ListExercise.dart';
+import 'package:frontend/shared/presentation/screen/chatPage.dart';
+import 'package:frontend/shared/presentation/screen/progressBar.dart';
+import 'package:frontend/shared/presentation/screen/routinesScreen.dart';
 import 'package:frontend/shared/presentation/theme/app_colors.dart';
 // importá tus vistas directamente si están en archivos separados
 // import 'package:frontend/features/Exercises/presentation/exercise_view.dart';
 
-class MainHomeView extends StatefulWidget {
-  const MainHomeView({super.key});
-
-  @override
-  State<MainHomeView> createState() => _MainHomeViewState();
-}
-
 class _MainHomeViewState extends State<MainHomeView> {
   final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
-
   Widget? _selectedView;
+
+  // 👇 Nuevo: índice del ítem seleccionado en la barra inferior
+  int _selectedIndex = 0;
+
+  final List<Widget> _views = [
+    Center(child: MyRoutinesPage()),
+    Center(child: Text("Vista Crear Rutina")),
+    Center(child: ProgressPage()),
+    Center(child: ChatPage()),
+  ];
 
   void _showView(Widget view) {
     setState(() {
@@ -28,22 +33,18 @@ class _MainHomeViewState extends State<MainHomeView> {
     });
   }
 
+  // 👇 Nuevo: función para manejar taps en la BottomNavigationBar
+  void _onItemTapped(int index) {
+    setState(() {
+      _selectedIndex = index;
+      _selectedView = Scaffold(body: _views[index]);
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: _scaffoldKey,
-      appBar: AppBar(
-        title: Text("FitnessApp", style: TextStyle(color: Colors.black)),
-        backgroundColor: AppColors.second,
-        actions: [
-          IconButton(
-            icon: Icon(Icons.menu, color: Colors.black),
-            onPressed: () {
-              _scaffoldKey.currentState?.openEndDrawer();
-            },
-          ),
-        ],
-      ),
       endDrawer: Drawer(
         child: ListView(
           padding: EdgeInsets.zero,
@@ -67,31 +68,21 @@ class _MainHomeViewState extends State<MainHomeView> {
         color: AppColors.primary,
         child:
             _selectedView != null
-                ? Column(
-                  children: [
-                    Expanded(child: _selectedView!),
-                    ElevatedButton(
-                      onPressed: _goBackToMenu,
-                      child: Text("Volver al menú"),
-                    ),
-                  ],
-                )
+                ? _selectedView
                 : Column(
                   children: [
                     Expanded(
                       child: _buildExpandedButton(
                         "lib/assets/images/w1.jpg",
                         "Mis rutinas",
-                        const Scaffold(
-                          body: Center(child: Text("Vista Crear Rutina")),
-                        ),
+                        Scaffold(body: Center(child: MyRoutinesPage())),
                       ),
                     ),
                     Expanded(
                       child: _buildExpandedButton(
                         "lib/assets/images/w2.jpg",
                         "Crear rutina",
-                        const Scaffold(
+                        Scaffold(
                           body: Center(child: Text("Vista Crear Rutina")),
                         ),
                       ),
@@ -108,12 +99,36 @@ class _MainHomeViewState extends State<MainHomeView> {
                         "lib/assets/images/w2.jpg",
                         "Marcas",
                         const Scaffold(
-                          body: Center(child: Text("Vista Crear Rutina")),
+                          body: Center(child: Text("Vista Marcas")),
                         ),
                       ),
                     ),
                   ],
                 ),
+      ),
+
+      // 👇 Aquí va tu barra de navegación inferior
+      bottomNavigationBar: BottomNavigationBar(
+        currentIndex: _selectedIndex,
+        onTap: _onItemTapped,
+        selectedItemColor: const Color(0xFF3CBC18),
+        unselectedItemColor: Colors.grey,
+        backgroundColor: Colors.white,
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.list), label: 'Routines'),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.auto_awesome),
+            label: 'Generate',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.show_chart),
+            label: 'Progress',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(Icons.shopping_bag),
+            label: 'Shop',
+          ),
+        ],
       ),
     );
   }
@@ -161,4 +176,11 @@ class _MainHomeViewState extends State<MainHomeView> {
       ),
     );
   }
+}
+
+class MainHomeView extends StatefulWidget {
+  const MainHomeView({Key? key}) : super(key: key);
+
+  @override
+  _MainHomeViewState createState() => _MainHomeViewState();
 }

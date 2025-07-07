@@ -22,7 +22,7 @@ class ButtonHome extends StatelessWidget {
         ),
         child: Ink(
           decoration: BoxDecoration(
-            color: AppColors.petroleum,
+            color: Colors.white,
             borderRadius: BorderRadius.circular(25), // Bordes redondeados
           ),
           child: Container(
@@ -30,7 +30,7 @@ class ButtonHome extends StatelessWidget {
             child: Text(
               text,
               style: const TextStyle(
-                color: Colors.white, // Texto en blanco
+                color: Color.fromARGB(255, 0, 0, 0), // Texto en blanco
                 fontWeight: FontWeight.bold,
                 fontSize: 16,
               ),
