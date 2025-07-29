@@ -22,8 +22,8 @@ class RoutineExerciseRepositoryImpl implements RoutineExerciseRepository {
 
   @override
   Future<Either<Failure, Routine>> addRoutineExercise(
-    int routine_id,
-    int exercise_id,
+    int routineId,
+    int exerciseId,
     int sets,
     int reps,
     int weight,
@@ -31,8 +31,8 @@ class RoutineExerciseRepositoryImpl implements RoutineExerciseRepository {
     try {
       final Routine routine =
           (await routineExercisesRemoteDataSource.addRoutineExercise(
-                routine_id,
-                exercise_id,
+                routineId,
+                exerciseId,
                 sets,
                 reps,
                 weight,

@@ -20,14 +20,14 @@ class RoutineRepositoryImpl extends RoutineRepository {
     String name,
     int weeks,
     int days,
-    int user_id,
+    int userId,
   ) async {
     try {
       final Routine routine = await routineRemoteDataSource.createRoutine(
         name,
         weeks,
         days,
-        user_id,
+        userId,
       );
       return Right(routine);
     } catch (e) {
@@ -47,11 +47,11 @@ class RoutineRepositoryImpl extends RoutineRepository {
 
   @override
   Future<Either<Failure, List<Routine>>> getAllRoutinesByUserId(
-    int user_id,
+    int userId,
   ) async {
     try {
       final List<Routine> routines = await routineRemoteDataSource
-          .getAllRoutinesByUserId(user_id);
+          .getAllRoutinesByUserId(userId);
       return Right(routines);
     } catch (e) {
       return Left(ServerFailure(message: e.toString()));

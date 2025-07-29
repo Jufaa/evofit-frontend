@@ -1,8 +1,7 @@
 import 'package:frontend/features/Submuscle/domain/entities/subMuscle.dart';
 
 class SubmuscleModel extends SubMuscle {
-  SubmuscleModel({required String name, required int main_muscle_id})
-    : super(name: name, main_muscle_id: main_muscle_id);
+  SubmuscleModel({required super.name, required super.main_muscle_id});
 
   factory SubmuscleModel.fromJson(Map<String, dynamic> json) {
     return SubmuscleModel(

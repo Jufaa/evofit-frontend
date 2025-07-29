@@ -5,8 +5,8 @@ import 'package:frontend/features/Routine_exercises/domain/entities/routine_exer
 
 abstract class RoutineExerciseRepository {
   Future<Either<Failure, Routine>> addRoutineExercise(
-    int routine_id,
-    int exercise_id,
+    int routineId,
+    int exerciseId,
     int sets,
     int reps,
     int weight,

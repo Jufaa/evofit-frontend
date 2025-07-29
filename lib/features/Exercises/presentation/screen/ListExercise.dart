@@ -37,7 +37,7 @@ class _ListexerciseViewState extends State<ListexerciseView> {
           await _listExerciseUseCase(); // esto es un Either<Failure, List<Exercise>>
       result.fold(
         (failure) {
-          print('Falló la carga: ${failure}');
+          print('Falló la carga: $failure');
           setState(() {
             _isLoading = false;
           });
@@ -53,7 +53,7 @@ class _ListexerciseViewState extends State<ListexerciseView> {
       final result2 = await _getAllMainMuscleUseCase();
       result2.fold(
         (failure) {
-          print('Falló la carga de músculos: ${failure}');
+          print('Falló la carga de músculos: $failure');
           setState(() {
             _isLoading = false;
           });

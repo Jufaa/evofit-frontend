@@ -1,5 +1,3 @@
-import 'package:frontend/features/Submuscle/domain/entities/subMuscle.dart';
-
 class MainMuscle {
   int? main_muscle_id;
   String name;

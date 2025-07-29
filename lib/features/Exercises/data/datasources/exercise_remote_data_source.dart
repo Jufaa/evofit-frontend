@@ -13,7 +13,7 @@ class ExerciseRemoteDataSourceImpl implements ExerciseRemoteDataSource {
     try {
       final resp = await dio.get('http://10.0.2.2:3000/exercise/all');
       print('RESP EXERCISE REMOTE DATA: ${resp.data}');
-      print('RESP EXERCISE REMOTE DATA: ${resp}');
+      print('RESP EXERCISE REMOTE DATA: $resp');
       return (resp.data as List)
           .map((exercise) => ExerciseModel.fromJson(exercise))
           .toList();
@@ -26,9 +26,7 @@ class ExerciseRemoteDataSourceImpl implements ExerciseRemoteDataSource {
   @override
   Future<ExerciseModel> getExerciseByMainMuscleId(int mainMuscleId) async {
     try {
-      final resp = await dio.get(
-        'http://10.0.2.2:3000/exercise/${mainMuscleId}',
-      );
+      final resp = await dio.get('http://10.0.2.2:3000/exercise/$mainMuscleId');
       return ExerciseModel.fromJson(resp.data);
     } on DioException catch (e) {
       if (e.response != null) {

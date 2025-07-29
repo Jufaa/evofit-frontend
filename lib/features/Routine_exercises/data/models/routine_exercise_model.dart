@@ -2,18 +2,12 @@ import 'package:frontend/features/Routine_exercises/domain/entities/routine_exer
 
 class RoutineExerciseModel extends RoutineExercise {
   RoutineExerciseModel({
-    required int routine_id,
-    required int exercise_id,
-    required int sets,
-    required int reps,
-    required int weight,
-  }) : super(
-         routine_id: routine_id,
-         exercise_id: exercise_id,
-         sets: sets,
-         reps: reps,
-         weight: weight,
-       );
+    required super.routine_id,
+    required super.exercise_id,
+    required super.sets,
+    required super.reps,
+    required super.weight,
+  });
 
   factory RoutineExerciseModel.fromJson(Map<String, dynamic> json) {
     return RoutineExerciseModel(

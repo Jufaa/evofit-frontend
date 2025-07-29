@@ -4,8 +4,8 @@ import 'package:frontend/features/Routine_exercises/data/models/routine_exercise
 
 abstract class RoutineExercisesRemoteDataSource {
   Future<RoutineExerciseModel> addRoutineExercise(
-    int routine_id,
-    int exercise_id,
+    int routineId,
+    int exerciseId,
     int sets,
     int reps,
     int weight,
@@ -28,8 +28,8 @@ class RoutineExerciseRemoteDataSourceImpl
 
   @override
   Future<RoutineExerciseModel> addRoutineExercise(
-    int routine_id,
-    int exercise_id,
+    int routineId,
+    int exerciseId,
     int sets,
     int reps,
     int weight,
@@ -38,8 +38,8 @@ class RoutineExerciseRemoteDataSourceImpl
       final response = await dio.post(
         'https://10.0.2.2:3000/routine_exercises',
         data: {
-          'routine_id': routine_id,
-          'exercise_id': exercise_id,
+          'routine_id': routineId,
+          'exercise_id': exerciseId,
           'sets': sets,
           'reps': reps,
           'weight': weight,

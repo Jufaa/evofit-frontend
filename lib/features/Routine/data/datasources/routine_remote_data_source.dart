@@ -6,7 +6,7 @@ abstract class RoutineRemoteDataSource {
     String name,
     int weeks,
     int days,
-    int user_id,
+    int userId,
   );
 
   Future<RoutineModel> getRoutineById(int id);
@@ -21,7 +21,7 @@ class RoutineRemoteDataSourceImpl implements RoutineRemoteDataSource {
     String name,
     int weeks,
     int days,
-    int user_id,
+    int userId,
   ) async {
     try {
       final resp = await dio.post(
@@ -30,7 +30,7 @@ class RoutineRemoteDataSourceImpl implements RoutineRemoteDataSource {
           'name_routine': name,
           'weeks': weeks,
           'days': days,
-          'user_id': user_id,
+          'user_id': userId,
         },
       );
       return RoutineModel.fromJson(resp.data);

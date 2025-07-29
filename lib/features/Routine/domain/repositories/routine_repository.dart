@@ -7,12 +7,12 @@ abstract class RoutineRepository {
     String name,
     int weeks,
     int days,
-    int user_id,
+    int userId,
   );
 
   Future<Either<Failure, Routine>> getRoutineById(int id);
 
-  Future<Either<Failure, List<Routine>>> getAllRoutinesByUserId(int user_id);
+  Future<Either<Failure, List<Routine>>> getAllRoutinesByUserId(int userId);
 
   Future<Either<Failure, bool>> deleteRoutine(int id);
 }
