@@ -89,7 +89,6 @@ class MainHomeView extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: const BottomNavBar(),
     );
   }
 

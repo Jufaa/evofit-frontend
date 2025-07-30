@@ -3,6 +3,7 @@ import 'package:frontend/features/User/domain/use_cases/signInUser.dart';
 import 'package:frontend/features/User/presentation/screen/registerView.dart';
 import 'package:frontend/shared/presentation/bloc/NavigationService.dart';
 import 'package:frontend/shared/presentation/entities/user_provider.dart';
+import 'package:frontend/shared/presentation/screen/bottomNavBar.dart';
 import 'package:frontend/shared/presentation/screen/mainHome.dart';
 import 'package:get_it/get_it.dart';
 import 'package:provider/provider.dart';
@@ -73,10 +74,12 @@ class _LoginViewState extends State<LoginView> {
 
     setState(() => _isLoading = true);
 
+    print("🟡 Iniciando login...");
     final result = await _signInUserUseCase(
       _usernameController.text,
       _passwordController.text,
     );
+    print("🟢 Resultado del login: $result");
 
     setState(() => _isLoading = false);
 
@@ -85,8 +88,9 @@ class _LoginViewState extends State<LoginView> {
         SnackBar(content: Text("Error de inicio de sesión: $failure")),
       ),
       (user) {
+        print("✅ Usuario logueado: $user");
         Provider.of<UserProvider>(context, listen: false).setUser(user);
-        NavigationService.navigateTo(context, const MainHomeView());
+        NavigationService.navigateTo(context, const BottomNavBar());
       },
     );
   }
