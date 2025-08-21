@@ -1,7 +1,7 @@
 //import 'routine.dart';
 
 class User {
-  String? id;
+  int? id;
   String email;
   String password;
   String username;

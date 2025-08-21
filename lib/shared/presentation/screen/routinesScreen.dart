@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/shared/presentation/screen/CreateRoutineView.dart';
 
 class MyRoutinesPage extends StatelessWidget {
   const MyRoutinesPage({super.key});
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -66,7 +67,6 @@ class MyRoutinesPage extends StatelessWidget {
 
           const SizedBox(height: 10),
 
-          // My routines title
           const Text(
             "My routines",
             style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
@@ -74,7 +74,6 @@ class MyRoutinesPage extends StatelessWidget {
 
           const SizedBox(height: 10),
 
-          // List of routines
           Expanded(
             child: ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -116,7 +115,6 @@ class MyRoutinesPage extends StatelessWidget {
             ),
           ),
 
-          // View all routines button
           Padding(
             padding: const EdgeInsets.all(16.0),
             child: ElevatedButton(
@@ -138,7 +136,18 @@ class MyRoutinesPage extends StatelessWidget {
         ],
       ),
 
-      // Bottom navigation bar
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const CreateRoutineView()),
+          );
+        },
+        label: const Text("Crear Rutina"),
+        icon: const Icon(Icons.add),
+        backgroundColor: Color(0xFF002B0E),
+        foregroundColor: Colors.white,
+      ),
     );
   }
 }

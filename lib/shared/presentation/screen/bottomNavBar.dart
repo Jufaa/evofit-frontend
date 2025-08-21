@@ -1,14 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:frontend/shared/presentation/screen/chatPage.dart';
 import 'package:frontend/shared/presentation/screen/mainHome.dart';
-
-class RoutinesPage extends StatelessWidget {
-  const RoutinesPage({super.key});
-  @override
-  Widget build(BuildContext context) {
-    return const Center(child: Text('Routines Page'));
-  }
-}
+import 'package:frontend/shared/presentation/screen/routinesScreen.dart';
 
 class SocialPage extends StatelessWidget {
   const SocialPage({super.key});
@@ -32,7 +25,7 @@ class _BottomNavBarState extends State<BottomNavBar> {
   // Lista de páginas que se renderizan según el índice
   final List<Widget> _pages = const [
     MainHomeView(),
-    RoutinesPage(),
+    MyRoutinesPage(),
     SocialPage(),
     ChatPage(),
   ];
